@@ -13,7 +13,7 @@ console.log('end') ; */
 
 //sencond exemple
 
-function hideString(str, done) {
+/* function hideString(str, done) {
     process.nextTick(() => {
         done(str.replace(/[a-zA-Z]/g, 'X'));
     })
@@ -23,11 +23,25 @@ hideString("Hello World", (hidden) => {
     console.log( hidden );
 });
 
-console.log( 'end' );
+console.log( 'end' ); */
 
 
 // to be a callback it needs to be async
-// process.nextTick () logs the hideString in the next loop, in the next tick
+// process.nextTick () logs the hideString in the next loop, in the next tick --that's the key that makes it a callback
 // the done function inside the process.nextTick() is the callback
 
 
+function delay(seconds, callback) {
+    setTimeout(callback, seconds*1000)
+}
+
+console.log('starting delays');
+delay(2, () => {
+    console.log('two seconds');
+    delay(1, () => {
+        console.log('three seconds');
+        delay(1, () => {
+            console.log('four seconds');
+        })
+    })
+})
