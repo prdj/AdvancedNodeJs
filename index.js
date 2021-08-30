@@ -70,7 +70,7 @@ console.log('end first tick'); */
 
 // The promisify function
 
-var { promisify } = require('util');
+/* var { promisify } = require('util');
 
 var delay = (seconds, callback) => {
     if (seconds > 3) {
@@ -87,4 +87,17 @@ var promiseDelay = promisify(delay)
 
 promiseDelay(5)
     .then(console.log)
-    .catch((error) => console.log(`error: &{error.message}`));
+    .catch((error) => console.log(`error: &{error.message}`)); */
+
+
+    //write module 
+
+    var fs = require('fs');
+    var { promisify } = require('util');
+
+
+    var writeFile = promisify(fs.writeFile);
+
+    writeFile('sample.txt', 'This is a sample')
+    .then(() => console.log('File successfully created'))
+    .catch((error) => console.log('error creating file'));
