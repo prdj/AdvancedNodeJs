@@ -70,6 +70,8 @@ console.log('end first tick'); */
 
 // The promisify function
 
+var { promisify } = require('util');
+
 var delay = (seconds, callback) => {
     if (seconds > 3) {
         callback(new Error(`${seconds} seconds it too long!`));
@@ -81,10 +83,8 @@ var delay = (seconds, callback) => {
     }
 }
 
-delay(4,(error, message) => {
-    if(error) {
-        console.log(error.message)
-    } else {
-        console.log(message)
-    }
-})
+var promiseDelay = promisify(delay)
+
+promiseDelay(5)
+    .then(console.log)
+    .catch((error) => console.log(`error: &{error.message}`));
