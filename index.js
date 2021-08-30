@@ -49,7 +49,7 @@ delay(2, () => {
 
 // promises
 
-var delay = (seconds) => new Promise((resolves, rejects) => {
+/* var delay = (seconds) => new Promise((resolves, rejects) => {
 
     if ( seconds > 3) {
         rejects(new Error(`${seconds} is to long!`))
@@ -66,5 +66,25 @@ delay(4)
 .then((number) => console.log(`my number is ${number}`))
 .catch((error) => console.log(`error; ${error.message}`))
 
-console.log('end first tick');
+console.log('end first tick'); */
 
+// The promisify function
+
+var delay = (seconds, callback) => {
+    if (seconds > 3) {
+        callback(new Error(`${seconds} seconds it too long!`));
+    } else {
+        setTimeout(() => 
+            callback(null, `the ${seconds} second delay is over.`),
+            seconds        
+        );
+    }
+}
+
+delay(4,(error, message) => {
+    if(error) {
+        console.log(error.message)
+    } else {
+        console.log(message)
+    }
+})
